@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: hjava
+  name: "microstream-grpc-server"
+spec:
+  selector:
+    matchLabels:
+      app: "microstream-grpc-server"
+  template:
+    metadata:
+      labels:
+        app: "microstream-grpc-server"
+        release: microstream-grpc-server
+    spec:
+      serviceAccountName: micronaut-service 
+      containers:
+        - name: "microstream-grpc-server"
+          image: microstream-grpc-server 
+          imagePullPolicy: Never 
+          ports:
+            - name: http
+              containerPort: 8080
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health/readiness
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health/liveness
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 3
+          #   failureThreshold: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: hjava
+  name: "microstream-grpc-server"
+spec:
+  selector:
+    app: "microstream-grpc-server"
+  type: NodePort
+  ports:
+    - protocol: "TCP"
+      port: 8080  

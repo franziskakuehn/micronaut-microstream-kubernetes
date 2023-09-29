@@ -1,0 +1,38 @@
+micronaut:
+  application:
+    name: microstreamService
+  context:
+    condition: trace
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+grpc:
+  server:
+    port: 5050
+    keep-alive-time: 1h
+    name: grpc-server
+    health.enabled: true
+
+microstream:
+  s3:
+    storage:
+      main:
+        bucket-name: jhubgrpc-microstreamrawdata
+        root-class: "orange.business.jhub.model.MicroStreamData"
+        channel-count: 4
+  # storage:
+  #   main:
+  #     root-class: "orange.business.jhub.model.MicroStreamData"
+  #     storage-directory: "target/MicroStreamRawData/"
+  #     channel-count: 4
+
+kafka:
+  bootstrap:
+    servers: 10.1.1.33:9092
+
+endpoints:
+  health:
+    details-visible: ANONYMOUS

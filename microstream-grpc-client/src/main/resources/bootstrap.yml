@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: client
+  config-client:
+    enabled: true
+kubernetes:
+  client:
+    secrets:
+      enabled: true
+      use-api: true
+    discovery:
+      mode: endpoint
+      mode-configuration:
+        endpoint:
+          watch:
+            enabled: true
